@@ -5,16 +5,19 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use Carbon\Carbon;
 use App\Controllers\Utility\FaucetPay;
+use App\Models\FaucetModel;
 
 class Account extends BaseController
 {
     protected $session;
     protected $faucetpay;
+    protected $faucet_model;
 
     public function __construct()
     {
         $this->session = session();
         $this->faucetpay = new FaucetPay();
+        $this->faucet_model = new FaucetModel();
     }
 
     public function reffer()
@@ -49,6 +52,8 @@ class Account extends BaseController
 
     public function faucet()
     {
+        $this->faucet_model->refresh_energy();
+
         $carbon = new Carbon();
         $timeNow = Carbon::now()->unix();
 
@@ -61,7 +66,7 @@ class Account extends BaseController
         $get_reward = $this->setting['reward_rate'];
 
         $energy = $user['energy'];
-        // dd($energy);
+
         return $this->loadView('user/faucet', compact( 'energy', 'get_reward', 'CanClaimTime'));
     }
 
