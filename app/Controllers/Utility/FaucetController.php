@@ -84,7 +84,8 @@ class FaucetController extends BaseController
         $this->insert_new_transaction($downline, $rewardReff, 'Bonus');
     }
 
-    private function insert_new_transaction(int $userId, float $amount, string $type){
+    private function insert_new_transaction(int $userId, float $amount, string $type)
+    {
         $dataTransaction = [
             'user_id' => $userId,
             'amount' => $amount,

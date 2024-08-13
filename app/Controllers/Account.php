@@ -6,18 +6,24 @@ use App\Controllers\BaseController;
 use Carbon\Carbon;
 use App\Controllers\Utility\FaucetPay;
 use App\Models\FaucetModel;
+use App\Controllers\Utility\FaucetController;
+use App\Models\TransactionModel;
 
 class Account extends BaseController
 {
     protected $session;
     protected $faucetpay;
     protected $faucet_model;
+    protected $faucet_controller;
+    protected $transaction_model;
 
     public function __construct()
     {
         $this->session = session();
+        $this->faucet_controller = new FaucetController();
         $this->faucetpay = new FaucetPay();
         $this->faucet_model = new FaucetModel();
+        $this->transaction_model = new TransactionModel();
     }
 
     public function reffer()
@@ -30,16 +36,35 @@ class Account extends BaseController
     public function withdraw()
     {
         $email = $this->session->get('email');
+
         $user = $this->userModel->where('email', $email)->first();
         $currency = 'USD';
         $balance = $user['balance'];
 
-        return $this->loadView('user/withdraw', compact('currency', 'balance'));
+        $withdraws = (new TransactionModel())
+            ->join('users', 'users.id = transactions.user_id', 'left')
+            ->where('type', 'Withdraw')
+            ->where('email', $email)
+            ->limit(10)
+            ->get()
+            ->getResult();
+
+        return $this->loadView('user/withdraw', compact('currency', 'balance', 'withdraws'));
     }
 
     public function withdraw_req(){
         $user = $this->userModel->where('email', $this->session->get('email'))->first();
+
         $this->faucetpay->send_payment($user['balance'], $user['email'], 'TRX', $user['ip_address']);
+
+        $dataTransaction = [
+            'user_id' => $user['id'],
+            'amount' => $user['balance'],
+            'unixtime' => Carbon::now()->unix(),
+            'type' => 'Withdraw'
+        ];
+        $this->transaction_model->insert($dataTransaction);
+
         return redirect()->back();
     }
 

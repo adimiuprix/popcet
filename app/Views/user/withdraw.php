@@ -43,11 +43,26 @@
                                             <td scope="col">Wallet</td>
                                             <td scope="col">Method</td>
                                             <td scope="col">Amount</td>
-                                            <td scope="col">Status</td>
                                             <td scope="col">Time</td>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php $numb = 1;?>
+                                        <?php if($withdraws == NULL):?>
+                                        <tr>
+                                            <td colspan="5">No record found</td>
+                                        </tr>
+                                        <?php else: ?>
+                                        <?php foreach($withdraws as $withdraw): ?>
+                                        <tr>
+                                            <td><?= $numb++;?></td>
+                                            <td><?= $withdraw->email;?></td>
+                                            <td><?= $withdraw->amount;?></td>
+                                            <td><?= $withdraw->type;?></td>
+                                            <td><?= hmn_time($withdraw->unixtime);?></td>
+                                        </tr>
+                                        <?php endforeach; ?>
+                                        <?php endif; ?>
                                     </tbody>
                                 </table>
                             </div>
