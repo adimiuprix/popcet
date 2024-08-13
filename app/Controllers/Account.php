@@ -4,14 +4,17 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use Carbon\Carbon;
+use App\Controllers\Utility\FaucetPay;
 
 class Account extends BaseController
 {
     protected $session;
+    protected $faucetpay;
 
     public function __construct()
     {
         $this->session = session();
+        $this->faucetpay = new FaucetPay();
     }
 
     public function reffer()
@@ -29,6 +32,12 @@ class Account extends BaseController
         $balance = $user['balance'];
 
         return $this->loadView('user/withdraw', compact('currency', 'balance'));
+    }
+
+    public function withdraw_req(){
+        $user = $this->userModel->where('email', $this->session->get('email'))->first();
+        $this->faucetpay->send_payment($user['balance'], $user['email'], 'TRX', $user['ip_address']);
+        return redirect()->back();
     }
 
     public function ptc()

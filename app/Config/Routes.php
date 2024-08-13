@@ -17,6 +17,7 @@ $routes->get('logout', 'Auth::logout');
 
 $routes->get('reffer', 'Account::reffer');
 $routes->get('withdraw', 'Account::withdraw');
+$routes->post('withdraw_req', 'Account::withdraw_req');
 // $routes->get('ptc', 'Account::ptc');
 $routes->get('faucet', 'Account::faucet');
 // $routes->get('advertise', 'Advertise::ads_index');

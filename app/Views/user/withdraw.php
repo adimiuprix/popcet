@@ -21,15 +21,12 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="text-center">Withdraw</h5>
-                            <form action="<?= base_url('user/withdraw'); ?>" method="POST">
+                            <form action="<?= base_url('withdraw_req'); ?>" method="POST">
                                 <div class="alert alert-info text-center" style="top:10px;"><b>Available Balance <?= $balance; ?></b></div>
                                 <br>
                                 <button type="submit" class="btn btn-primary btn-block">Withdraw</button>
                             </form>
                         </div>
-                    </div>
-                    <!----middle ads area---->
-                    <div class="ads">
                     </div>
                 </div>
                 <!-- End Withdrawals Area -->
