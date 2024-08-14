@@ -12,5 +12,5 @@ class TransactionModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['user_id', 'amount', 'unixtime'];
+    protected $allowedFields    = ['user_id', 'amount', 'unixtime', 'type'];
 }
