@@ -57,6 +57,11 @@ class Account extends BaseController
 
         $this->faucetpay->send_payment($user['balance'], $user['email'], 'TRX', $user['ip_address']);
 
+        $newBalance = $user['balance'] - $user['balance'];
+        $this->userModel->update($user['id'], [
+            'balance' => $newBalance,
+        ]);
+
         $dataTransaction = [
             'user_id' => $user['id'],
             'amount' => $user['balance'],
