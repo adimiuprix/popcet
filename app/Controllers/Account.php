@@ -55,21 +55,22 @@ class Account extends BaseController
     public function withdraw_req(){
         $user = $this->userModel->where('email', $this->session->get('email'))->first();
 
-        $this->faucetpay->send_payment($user['balance'], $user['email'], 'TRX', $user['ip_address']);
+        if($user['balance'] >= 0.00000001){
+            $this->faucetpay->send_payment($user['balance'], $user['email'], 'TRX', $user['ip_address']);
+            $newBalance = $user['balance'] - $user['balance'];
+            $this->userModel->update($user['id'], [
+                'balance' => $newBalance,
+            ]);
 
-        $newBalance = $user['balance'] - $user['balance'];
-        $this->userModel->update($user['id'], [
-            'balance' => $newBalance,
-        ]);
+            $dataTransaction = [
+                'user_id' => $user['id'],
+                'amount' => $user['balance'],
+                'unixtime' => Carbon::now()->unix(),
+                'type' => 'Withdraw'
+            ];
+            $this->transaction_model->insert($dataTransaction);
 
-        $dataTransaction = [
-            'user_id' => $user['id'],
-            'amount' => $user['balance'],
-            'unixtime' => Carbon::now()->unix(),
-            'type' => 'Withdraw'
-        ];
-        $this->transaction_model->insert($dataTransaction);
-
+        }
         return redirect()->back();
     }
 
