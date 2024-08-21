@@ -27,6 +27,7 @@ class Home extends BaseController
 
         $payouts = (new TransactionModel())
             ->join('users', 'users.id = transactions.user_id', 'left')
+            ->orderBy('transactions.id', 'DESC')
             ->limit(10)
             ->get()
             ->getResult();
