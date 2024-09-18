@@ -10,6 +10,7 @@ use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use App\Models\SettingModel;
 use App\Models\UsersModel;
+use App\Models\SeoModel;
 
 /**
  * Class BaseController
@@ -48,6 +49,8 @@ abstract class BaseController extends Controller
     protected $userModel;
     protected $client;
     protected $setting;
+    protected $seo;
+    protected $adstera;
 
     /**
      * @return void
@@ -64,5 +67,7 @@ abstract class BaseController extends Controller
         $this->client = \Config\Services::curlrequest();
         $this->setting = (new SettingModel())->first();
         $this->userModel = new UsersModel();
+        $this->seo = new SeoModel();
+        $this->adstera = $this->seo->where('title', 'adstera')->get()->getRowObject();
     }
 }

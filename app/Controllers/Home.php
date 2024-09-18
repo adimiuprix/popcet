@@ -4,11 +4,10 @@ namespace App\Controllers;
 use App\Controllers\Utility\FuncMain;
 use App\Models\UsersModel;
 use App\Models\TransactionModel;
-use App\Models\SeoModel;
+
 
 class Home extends BaseController
 {
-    protected $seo;
     protected $userModel;
     protected $utility;
 
@@ -16,15 +15,12 @@ class Home extends BaseController
     {
         // $this->session->set('email', 'tronvego@gmail.com');
         // $this->session->remove('email');
-        $this->seo = new SeoModel();
         $this->userModel = new UsersModel();
         $this->utility = new FuncMain();
     }
 
     public function index(): string
     {
-        $adstera = $this->seo->where('title', 'adstera')->get()->getRowObject();
-
         // Ambil data session yang diperlukan untuk view
         $session = $this->session->get('email');
 
@@ -38,7 +34,7 @@ class Home extends BaseController
             ->getResult();
 
             $data = array_merge([
-                'adstera_tag' => $adstera->meta_data,
+                'adstera_tag' => $this->adstera->meta_data,
                 'session' => $session,
                 'tot_users' => $tot_users,
                 'payouts' => $payouts
@@ -51,24 +47,48 @@ class Home extends BaseController
     public function blog(): string
     {
         $session = $this->session->get('email');
-        return view('blog', compact('session'));
+
+        $data = [
+            'adstera_tag' => $this->adstera->meta_data,
+            'session' => $session,
+        ];
+
+        return view('blog', $data);
     }
 
     public function blog_detail(): string
     {
         $session = $this->session->get('email');
-        return view('blog_detail', compact('session'));
+
+        $data = [
+            'adstera_tag' => $this->adstera->meta_data,
+            'session' => $session,
+        ];
+
+        return view('blog_detail', $data);
     }
 
     public function privacy(): string
     {
         $session = $this->session->get('email');
-        return view('privacy', compact('session'));
+
+        $data = [
+            'adstera_tag' => $this->adstera->meta_data,
+            'session' => $session,
+        ];
+
+        return view('privacy', $data);
     }
 
     public function cookie(): string
     {
         $session = $this->session->get('email');
-        return view('cookie', compact('session'));
+
+        $data = [
+            'adstera_tag' => $this->adstera->meta_data,
+            'session' => $session,
+        ];
+
+        return view('cookie', $data);
     }
 }
