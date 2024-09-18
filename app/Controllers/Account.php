@@ -92,7 +92,7 @@ class Account extends BaseController
         $user = $this->userModel->where('email', $email)->first();
 
         $LastClaimTime = $user['last_claim'];
-        $CanClaimTime = $LastClaimTime + 60;
+        $CanClaimTime = $LastClaimTime + env('COOLDOWN_CLAIM');
 
         $get_reward = $this->setting['reward_rate'];
 

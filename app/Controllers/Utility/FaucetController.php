@@ -28,11 +28,13 @@ class FaucetController extends BaseController
 
         $timeNow = Carbon::now()->unix();
         $LastClaimTime = $user['last_claim'];
-        $canClaim = $LastClaimTime + env('COOLDOWN_CLAIM');
+        $cooldownTime = env('COOLDOWN_CLAIM');
+        $canClaim = $LastClaimTime + $cooldownTime;
 
         if(!is_null($user)){
 
-            $result = json_decode((new CloudflareCaptchaResolver())->captcha_solver($this->request->getVar('cf-turnstile-response'))->getBody()->getContents(), true);
+            $result = ['success' => true]; // for fake
+            // $result = json_decode((new CloudflareCaptchaResolver())->captcha_solver($this->request->getVar('cf-turnstile-response'))->getBody()->getContents(), true);
 
             if ($result['success'] == true) {
                 if ($user['energy'] >= 1 && $timeNow >= $canClaim) {

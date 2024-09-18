@@ -20,7 +20,9 @@
                         <div class="card-body">
                             <div class="media">
                                 <div class="media-body">
-                                    <p class="lh-1 mb-1 font-weight-bold"><span id="time">00:00</span></p>
+                                    <p class="lh-1 mb-1 font-weight-bold">
+                                        <span id="time">00:00</span>
+                                    </p>
                                     <p class="mb-0">Timer</p>
                                 </div>
                                 <div class="align-self-center">
@@ -91,10 +93,8 @@
     var unixTime = Math.floor(Date.now() / 1000);
     var claimTime = <?= $CanClaimTime; ?>;
 
-    // Menghitung selisih waktu
     var difference = claimTime - unixTime;
 
-    // Fungsi untuk mengonversi selisih waktu ke format countdown (00:00)
     function formatTime(seconds) {
         var minutes = Math.floor(seconds / 60);
         var remainingSeconds = seconds % 60;
