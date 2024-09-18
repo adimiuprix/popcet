@@ -33,8 +33,8 @@ class FaucetController extends BaseController
 
         if(!is_null($user)){
 
-            $result = ['success' => true]; // for fake
-            // $result = json_decode((new CloudflareCaptchaResolver())->captcha_solver($this->request->getVar('cf-turnstile-response'))->getBody()->getContents(), true);
+            // $result = ['success' => true]; // for fake
+            $result = json_decode((new CloudflareCaptchaResolver())->captcha_solver($this->request->getVar('cf-turnstile-response'))->getBody()->getContents(), true);
 
             if ($result['success'] == true) {
                 if ($user['energy'] >= 1 && $timeNow >= $canClaim) {
