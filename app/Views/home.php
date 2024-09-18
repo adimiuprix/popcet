@@ -36,7 +36,7 @@
 
                             <p class="font-weight-bold mb-4 text-center"></p>
                             <!----description area---->
-                            <img class="wow fadeInUp" width="50" height="50" src="assets/images/currencies/ltc.png">
+                            <img class="wow fadeInUp" width="50" height="50" src="assets/images/currencies/ton-icon.webp">
                             <div class="action-btns mt-4">
                                 <ul class="list-inline text-center align-items-center">
                                     <?php if($session == null): ?>
@@ -66,6 +66,7 @@
                                     <?php endif; ?>
                                 </ul>
                             </div>
+
                         </div>
                     </div>
                 </div>
