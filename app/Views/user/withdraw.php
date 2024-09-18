@@ -22,7 +22,7 @@
                         <div class="card-body">
                             <h5 class="text-center">Withdraw</h5>
                             <form action="<?= base_url('withdraw_req'); ?>" method="POST">
-                                <div class="alert alert-info text-center" style="top:10px;"><b>Available Balance <?= $balance; ?></b></div>
+                                <div class="alert alert-info text-center" style="top:10px;"><b>Available Balance <?= $balance; ?> | Min. withdraw: 1 TON</b></div>
                                 <br>
                                 <button type="submit" class="btn btn-primary btn-block">Withdraw</button>
                             </form>
