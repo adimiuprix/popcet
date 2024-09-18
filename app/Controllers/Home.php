@@ -32,8 +32,14 @@ class Home extends BaseController
             ->get()
             ->getResult();
 
+            $data = array_merge([
+                'session' => $session,
+                'tot_users' => $tot_users,
+                'payouts' => $payouts
+            ]);
+
         // Render view dengan data
-        return view('home', compact('session', 'tot_users', 'payouts'));
+        return view('home', $data);
     }
 
     public function blog(): string
