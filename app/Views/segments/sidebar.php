@@ -128,7 +128,7 @@
                 </a>
                 <ul class="collapse submenu list-unstyled" id="faucet" data-parent="#accordionExample">
                     <li>
-                        <a href="faucet/">Faucet LTC</a>
+                        <a href="faucet/">Faucet TON</a>
                     </li>
                 </ul>
             </li>
