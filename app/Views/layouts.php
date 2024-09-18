@@ -89,7 +89,7 @@
                 </div>
             </div>
         </div>
-        <script src='<?= assets('assets/js/webjs/sweetalert.min.js');?>'></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
         <script src="<?= assets('public/template/dashboard/perfect-scrollbar/perfect-scrollbar.min.js');?>"></script>
         <script src="<?= assets('public/template/js/app.js');?>"></script>
         <script src="<?= assets('styles/js/bootstrap.bundle.min.js');?>"></script>
@@ -107,6 +107,36 @@
                 App.init();
             });
             $("a[href='<?= base_url().ltrim(request()->getUri()->getPath(), '/') ?>']").attr('data-active', 'true');
+        </script>
+
+        <script>
+        <?php if (session()->getFlashdata('alert') === 'success'): ?>
+            Swal.fire({
+                title: 'Success!',
+                text: 'Claim successfully.',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 3000,
+            });
+        <?php endif; ?>
+        <?php if (session()->getFlashdata('alert') === 'failed'): ?>
+            Swal.fire({
+                title: 'Error!',
+                text: 'timer cooldown.',
+                icon: 'warning',
+                showConfirmButton: false,
+                timer: 3000,
+            });
+        <?php endif; ?>
+        <?php if (session()->getFlashdata('alert') === 'n_energy'): ?>
+            Swal.fire({
+                title: 'Energy cooldown!',
+                text: 'Empty energy, come back tomorow.',
+                icon: 'warning',
+                showConfirmButton: false,
+                timer: 3000,
+            });
+        <?php endif; ?>
         </script>
     </body>
 </html>

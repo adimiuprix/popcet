@@ -36,7 +36,12 @@ class FaucetController extends BaseController
             // $result = ['success' => true]; // for fake
             $result = json_decode((new CloudflareCaptchaResolver())->captcha_solver($this->request->getVar('cf-turnstile-response'))->getBody()->getContents(), true);
 
-            if ($result['success'] == true) {
+            if($user['energy'] == 0){
+                session()->setFlashdata('alert', 'n_energy');
+                return redirect()->back();
+            }
+
+            if ($result['success'] == true && $timeNow >= $canClaim) {
                 if ($user['energy'] >= 1 && $timeNow >= $canClaim) {
                     $balance = $user['balance'];
                     $energy = $user['energy'];
@@ -59,10 +64,14 @@ class FaucetController extends BaseController
                     };
                 }
             } else {
+                session()->setFlashdata('alert', 'failed');
                 return redirect()->back();
             }
 
         }
+
+        session()->setFlashdata('alert', 'success');
+
         return redirect()->back();
     }
 
