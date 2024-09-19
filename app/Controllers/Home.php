@@ -57,48 +57,80 @@ class Home extends BaseController
 
     public function blog(): string
     {
+        $sitename = $this->setting_model['sitename'];
+        $keywords = $this->setting_model['keyword'];
+        $description = $this->setting_model['description'];
+
         $session = $this->session->get('email');
 
-        $data = [
+        $data = array_merge([
             'adstera_tag' => $this->adstera->meta_data,
             'session' => $session,
-        ];
+        ], [
+            'sitename' => $sitename,
+            'keywords' => $keywords,
+            'description' => $description
+        ]);
 
         return view('blog', $data);
     }
 
     public function blog_detail(): string
     {
+        $sitename = $this->setting_model['sitename'];
+        $keywords = $this->setting_model['keyword'];
+        $description = $this->setting_model['description'];
+
         $session = $this->session->get('email');
 
-        $data = [
+        $data = array_merge([
             'adstera_tag' => $this->adstera->meta_data,
             'session' => $session,
-        ];
+        ], [
+            'sitename' => $sitename,
+            'keywords' => $keywords,
+            'description' => $description
+        ]);
 
         return view('blog_detail', $data);
     }
 
     public function privacy(): string
     {
+        $sitename = $this->setting_model['sitename'];
+        $keywords = $this->setting_model['keyword'];
+        $description = $this->setting_model['description'];
+
         $session = $this->session->get('email');
 
-        $data = [
+        $data = array_merge([
             'adstera_tag' => $this->adstera->meta_data,
             'session' => $session,
-        ];
+        ], [
+            'sitename' => $sitename,
+            'keywords' => $keywords,
+            'description' => $description
+        ]);
 
         return view('privacy', $data);
     }
 
     public function cookie(): string
     {
+        $sitename = $this->setting_model['sitename'];
+        $keywords = $this->setting_model['keyword'];
+        $description = $this->setting_model['description'];
+
         $session = $this->session->get('email');
 
-        $data = [
+        $data = array_merge([
             'adstera_tag' => $this->adstera->meta_data,
             'session' => $session,
-        ];
+        ], [
+            'sitename' => $sitename,
+            'keywords' => $keywords,
+            'description' => $description
+        ]);
 
         return view('cookie', $data);
     }

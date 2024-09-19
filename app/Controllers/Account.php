@@ -8,6 +8,7 @@ use App\Controllers\Utility\FaucetPay;
 use App\Models\FaucetModel;
 use App\Controllers\Utility\FaucetController;
 use App\Models\TransactionModel;
+use App\Models\SettingModel;
 
 class Account extends BaseController
 {
@@ -16,6 +17,7 @@ class Account extends BaseController
     protected $faucet_model;
     protected $faucet_controller;
     protected $transaction_model;
+    protected $setting_model;
 
     public function __construct()
     {
@@ -24,6 +26,7 @@ class Account extends BaseController
         $this->faucetpay = new FaucetPay();
         $this->faucet_model = new FaucetModel();
         $this->transaction_model = new TransactionModel();
+        $this->setting_model = (new SettingModel())->first();
     }
 
     public function reffer()
