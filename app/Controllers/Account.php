@@ -112,10 +112,14 @@ class Account extends BaseController
 
     private function loadView($view, $compact = [])
     {
+        $sitename = $this->setting_model['sitename'];
+        $keywords = $this->setting_model['keyword'];
+        $description = $this->setting_model['description'];
+
         $adstera_tag = $this->adstera->meta_data;
         $session = $this->session->get('email');
         $data = array_merge(
-            compact('adstera_tag', 'session'),
+            compact('adstera_tag', 'session', 'sitename', 'keywords', 'description'),
             $compact
         );
 
