@@ -6,7 +6,7 @@
         <title><?= $sitename;?></title>
         <meta name="description" content="<?= $description;?>">
         <meta name="keywords" content="<?= $keywords;?>">
-        <?= $adstera_tag; ?>
+        <?= $popunder; ?>
         <link rel="icon" type="image/x-icon" href="<?= assets('assets/images/favicon.ico');?>" />
         <link href="<?= assets('public/template/css/fontawesome.css');?>" rel="stylesheet" type="text/css" />
         <link href="<?= assets('public/template/dashboard/plugins.css');?>" rel="stylesheet" type="text/css" />
@@ -140,5 +140,6 @@
             });
         <?php endif; ?>
         </script>
+        <script type='text/javascript' src='<?= $social_bar; ?>'></script>
     </body>
 </html>

@@ -9,6 +9,7 @@ use App\Models\FaucetModel;
 use App\Controllers\Utility\FaucetController;
 use App\Models\TransactionModel;
 use App\Models\SettingModel;
+use App\Models\AdsteraModel;
 
 class Account extends BaseController
 {
@@ -18,6 +19,8 @@ class Account extends BaseController
     protected $faucet_controller;
     protected $transaction_model;
     protected $setting_model;
+    protected $utility;
+    protected $social_bar;
 
     public function __construct()
     {
@@ -27,6 +30,8 @@ class Account extends BaseController
         $this->faucet_model = new FaucetModel();
         $this->transaction_model = new TransactionModel();
         $this->setting_model = (new SettingModel())->first();
+        $this->popunder = (new AdsteraModel())->where('type', 'popunder')->get()->getFirstRow();
+        $this->social_bar = (new AdsteraModel())->where('type', 'social_bar')->get()->getFirstRow();
     }
 
     public function reffer()
@@ -115,11 +120,19 @@ class Account extends BaseController
         $sitename = $this->setting_model['sitename'];
         $keywords = $this->setting_model['keyword'];
         $description = $this->setting_model['description'];
-
-        $adstera_tag = $this->adstera->meta_data;
         $session = $this->session->get('email');
+        $popunder = $this->popunder->meta_data;
+        $social_bar = $this->social_bar->meta_data;
+
         $data = array_merge(
-            compact('adstera_tag', 'session', 'sitename', 'keywords', 'description'),
+            compact(
+                'session', 
+                'sitename', 
+                'keywords', 
+                'description',
+                'popunder',
+                'social_bar'
+            ),
             $compact
         );
 

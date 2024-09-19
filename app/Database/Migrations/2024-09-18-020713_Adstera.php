@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class Faucets extends Migration
+class Seos extends Migration
 {
     public function up()
     {
@@ -15,7 +15,7 @@ class Faucets extends Migration
                 'unsigned' => true,
                 'auto_increment' => true,
             ],
-            'title' => [
+            'type' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',
                 'null' => true,
@@ -24,21 +24,24 @@ class Faucets extends Migration
                 'type'       => 'TEXT',
                 'null' => true,
             ],
-            'create_at DATETIME DEFAULT CURRENT_TIMESTAMP',
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->createTable('seos');
+        $this->forge->createTable('adsteras');
         $initialData = [
             [
-                'title'     => 'adstera',
-                'meta_data'     => 'link metadata',
+                'type'     => 'popunder',
+                'meta_data'     => '',
+            ],
+            [
+                'type'     => 'social_bar',
+                'meta_data'     => '',
             ],
         ];
-        $this->db->table('seos')->insertBatch($initialData);
+        $this->db->table('adsteras')->insertBatch($initialData);
     }
 
     public function down()
     {
-        $this->forge->dropTable('seos');
+        $this->forge->dropTable('adsteras');
     }
 }

@@ -5,13 +5,14 @@ use App\Controllers\Utility\FuncMain;
 use App\Models\UsersModel;
 use App\Models\TransactionModel;
 use App\Models\SettingModel;
-
+use App\Models\AdsteraModel;
 
 class Home extends BaseController
 {
     protected $userModel;
     protected $setting_model;
     protected $utility;
+    protected $social_bar;
 
     public function __construct()
     {
@@ -20,6 +21,8 @@ class Home extends BaseController
         $this->userModel = new UsersModel();
         $this->utility = new FuncMain();
         $this->setting_model = (new SettingModel())->first();
+        $this->popunder = (new AdsteraModel())->where('type', 'popunder')->get()->getFirstRow();
+        $this->social_bar = (new AdsteraModel())->where('type', 'social_bar')->get()->getFirstRow();
     }
 
     public function index(): string
@@ -41,14 +44,15 @@ class Home extends BaseController
             ->getResult();
 
             $data = array_merge([
-                'adstera_tag' => $this->adstera->meta_data,
                 'session' => $session,
                 'tot_users' => $tot_users,
                 'payouts' => $payouts
             ], [
                 'sitename' => $sitename,
                 'keywords' => $keywords,
-                'description' => $description
+                'description' => $description,
+                'popunder' => $this->popunder->meta_data,
+                'social_bar' => $this->social_bar->meta_data,
             ]);
 
         // Render view dengan data
@@ -64,12 +68,13 @@ class Home extends BaseController
         $session = $this->session->get('email');
 
         $data = array_merge([
-            'adstera_tag' => $this->adstera->meta_data,
             'session' => $session,
         ], [
             'sitename' => $sitename,
             'keywords' => $keywords,
-            'description' => $description
+            'description' => $description,
+            'popunder' => $this->popunder->meta_data,
+            'social_bar' => $this->social_bar->meta_data,
         ]);
 
         return view('blog', $data);
@@ -84,12 +89,13 @@ class Home extends BaseController
         $session = $this->session->get('email');
 
         $data = array_merge([
-            'adstera_tag' => $this->adstera->meta_data,
             'session' => $session,
         ], [
             'sitename' => $sitename,
             'keywords' => $keywords,
-            'description' => $description
+            'description' => $description,
+            'popunder' => $this->popunder->meta_data,
+            'social_bar' => $this->social_bar->meta_data,
         ]);
 
         return view('blog_detail', $data);
@@ -104,12 +110,13 @@ class Home extends BaseController
         $session = $this->session->get('email');
 
         $data = array_merge([
-            'adstera_tag' => $this->adstera->meta_data,
             'session' => $session,
         ], [
             'sitename' => $sitename,
             'keywords' => $keywords,
-            'description' => $description
+            'description' => $description,
+            'popunder' => $this->popunder->meta_data,
+            'social_bar' => $this->social_bar->meta_data,
         ]);
 
         return view('privacy', $data);
@@ -124,12 +131,13 @@ class Home extends BaseController
         $session = $this->session->get('email');
 
         $data = array_merge([
-            'adstera_tag' => $this->adstera->meta_data,
             'session' => $session,
         ], [
             'sitename' => $sitename,
             'keywords' => $keywords,
-            'description' => $description
+            'description' => $description,
+            'popunder' => $this->popunder->meta_data,
+            'social_bar' => $this->social_bar->meta_data,
         ]);
 
         return view('cookie', $data);
