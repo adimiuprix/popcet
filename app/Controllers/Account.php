@@ -37,8 +37,12 @@ class Account extends BaseController
     public function reffer()
     {
         $user = $this->userModel->where('email', $this->session->get('email'))->first();
+
         $refcode = base_url('reff/' . $user['referral_code']);
-        return $this->loadView('user/reffer', compact('refcode'));
+
+        $m_reffs = $this->userModel->where('reff_by', 2)->get()->getResultArray();
+
+        return $this->loadView('user/reffer', compact('refcode', 'm_reffs'));
     }
 
     public function withdraw()
