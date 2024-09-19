@@ -4,11 +4,13 @@ namespace App\Controllers;
 use App\Controllers\Utility\FuncMain;
 use App\Models\UsersModel;
 use App\Models\TransactionModel;
+use App\Models\SettingModel;
 
 
 class Home extends BaseController
 {
     protected $userModel;
+    protected $setting_model;
     protected $utility;
 
     public function __construct()
@@ -17,10 +19,15 @@ class Home extends BaseController
         // $this->session->remove('email');
         $this->userModel = new UsersModel();
         $this->utility = new FuncMain();
+        $this->setting_model = (new SettingModel())->first();
     }
 
     public function index(): string
     {
+        $sitename = $this->setting_model['sitename'];
+        $keywords = $this->setting_model['keyword'];
+        $description = $this->setting_model['description'];
+
         // Ambil data session yang diperlukan untuk view
         $session = $this->session->get('email');
 
@@ -38,6 +45,10 @@ class Home extends BaseController
                 'session' => $session,
                 'tot_users' => $tot_users,
                 'payouts' => $payouts
+            ], [
+                'sitename' => $sitename,
+                'keywords' => $keywords,
+                'description' => $description
             ]);
 
         // Render view dengan data

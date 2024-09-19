@@ -51,6 +51,8 @@ abstract class BaseController extends Controller
     protected $setting;
     protected $seo;
     protected $adstera;
+    protected $metaTag;
+    protected $web_data;
 
     /**
      * @return void
