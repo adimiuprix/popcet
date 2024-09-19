@@ -40,7 +40,7 @@ class Account extends BaseController
 
         $refcode = base_url('reff/' . $user['referral_code']);
 
-        $m_reffs = $this->userModel->where('reff_by', 2)->get()->getResultArray();
+        $m_reffs = $this->userModel->where('reff_by', $user['id'])->get()->getResultArray();
 
         return $this->loadView('user/reffer', compact('refcode', 'm_reffs'));
     }
