@@ -66,7 +66,7 @@ class Account extends BaseController
 
     public function withdraw_req(){
         $user = $this->userModel->where('email', $this->session->get('email'))->first();
-        $min_wd = 1.00000000;
+        $min_wd = 0.10000000;
         if($user['balance'] >= $min_wd){
             $this->faucetpay->send_payment($user['balance'], $user['email'], 'TRX', $user['ip_address']);
             $newBalance = $user['balance'] - $user['balance'];
