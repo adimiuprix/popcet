@@ -32,7 +32,7 @@
                         <div class="card-body text-center">
                             <h5 class="card-title mb-4">Referral history history</h5>
                             <div class="table-responsive">
-                                <table class="table table-striped text-center">
+                                <table class="table table-striped text-left">
                                     <thead class="thead-light">
                                         <tr>
                                             <td scope="col">#</td>
